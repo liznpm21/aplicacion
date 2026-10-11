@@ -1,0 +1,239 @@
+<ion-header>
+
+  <ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Peluquero
+    </ion-title>
+
+    <ion-icon
+      slot="end"
+      name="person-circle-outline"
+      class="profile"
+      (click)="openProfileModal()">
+    </ion-icon>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="page">
+
+<div class="today">
+
+<h2>HOY</h2>
+
+<p>{{ today }}</p>
+
+</div>
+
+<ion-datetime
+  presentation="date"
+  locale="es-CO"
+  [value]="selectedDate"
+  [highlightedDates]="highlightedDates"
+  (ionChange)="onDateChange($event)"
+  class="calendar">
+</ion-datetime>
+
+<div
+class="appointment"
+*ngFor="let item of appointments">
+
+<div class="hour">
+
+{{item.time}}
+
+</div>
+
+<ion-card>
+
+<ion-card-content>
+
+<div class="top">
+
+<div>
+
+<span class="status">
+
+{{item.status}}
+
+</span>
+
+<h3>
+
+{{item.clientName}}
+
+</h3>
+
+<p>
+
+{{item.serviceName}}
+
+</p>
+
+</div>
+
+<img
+*ngIf="item.avatar"
+[src]="item.avatar">
+
+</div>
+
+<div class="buttons">
+
+<ion-button color="warning">
+
+Detalles
+
+</ion-button>
+
+<ion-button
+color="success"
+(click)="confirm(item)">
+
+Confirmar
+
+</ion-button>
+
+<ion-button
+color="danger"
+(click)="cancel(item)">
+
+Cancelar
+
+</ion-button>
+
+</div>
+
+</ion-card-content>
+
+</ion-card>
+
+</div>
+
+<p *ngIf="appointments.length === 0" class="empty">
+  No hay citas para este día.
+</p>
+
+</ion-content>
+
+
+<ion-footer>
+
+<div class="bottom">
+
+<div (click)="goToAgenda()">
+
+<ion-icon
+name="calendar-outline">
+</ion-icon>
+
+<p>Agenda</p>
+
+</div>
+
+<div (click)="openProfileModal()">
+
+<ion-icon
+name="person-outline">
+</ion-icon>
+
+<p>Perfil</p>
+
+</div>
+
+<div (click)="openStatsModal()">
+
+<ion-icon
+name="stats-chart-outline">
+</ion-icon>
+
+<p>Estadísticas</p>
+
+</div>
+
+</div>
+
+</ion-footer>
+
+
+<ion-modal [isOpen]="isProfileModalOpen" (didDismiss)="closeProfileModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Perfil</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeProfileModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding modal-content">
+      <ion-icon name="person-circle-outline" class="profile-icon"></ion-icon>
+      <h2>{{ barberEmail }}</h2>
+      <p class="subtitle">Barbero</p>
+
+      <ion-button expand="block" color="danger" class="ion-margin-top" (click)="logout()">
+        Cerrar sesión
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal [isOpen]="isStatsModalOpen" (didDismiss)="closeStatsModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Estadísticas</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeStatsModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding modal-content">
+
+      <ion-card>
+        <ion-card-content>
+          <ion-icon name="calendar-outline" class="stat-icon"></ion-icon>
+          <h3>Total de citas</h3>
+          <h1>{{ totalCitas }}</h1>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-icon name="checkmark-circle" class="stat-icon"></ion-icon>
+          <h3>Confirmadas</h3>
+          <h1>{{ citasConfirmadas }}</h1>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-icon name="close-circle" class="stat-icon"></ion-icon>
+          <h3>Canceladas</h3>
+          <h1>{{ citasCanceladas }}</h1>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-icon name="cash-outline" class="stat-icon"></ion-icon>
+          <h3>Ingresos generados</h3>
+          <h1>${{ ingresosTotales }}</h1>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>

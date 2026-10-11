@@ -1,0 +1,427 @@
+<ion-menu contentId="main-content" side="start">
+
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>Barbershop</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle autoHide="true">
+        <ion-item routerLink="/home">
+          <ion-label>Inicio</ion-label>
+        </ion-item>
+        <ion-item routerLink="/services">
+          <ion-label>Servicios</ion-label>
+        </ion-item>
+        <ion-item routerLink="/booking">
+          <ion-label>Reservas</ion-label>
+        </ion-item>
+        <ion-item routerLink="/admin">
+          <ion-label>Administrador</ion-label>
+        </ion-item>
+        <ion-item button (click)="logout()">
+          <ion-label>Cerrar sesión</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-header>
+
+  <ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Administración
+    </ion-title>
+
+    <ion-icon
+      slot="end"
+      name="person-circle-outline"
+      class="profile">
+    </ion-icon>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content id="main-content" class="page">
+
+<div class="welcome">
+
+<h2>Dashboard</h2>
+
+<p>Resumen general del negocio</p>
+
+</div>
+
+<div class="cards">
+
+<ion-card>
+
+<ion-card-content>
+
+<h3>Ingresos Hoy</h3>
+
+<h1>${{ ingresosHoy }}</h1>
+
+</ion-card-content>
+
+</ion-card>
+
+<ion-card>
+
+<ion-card-content>
+
+<h3>Citas Hoy</h3>
+
+<h1>{{ totalCitasHoy }}</h1>
+
+</ion-card-content>
+
+</ion-card>
+
+<ion-card>
+
+<ion-card-content>
+
+<h3>Clientes</h3>
+
+<h1>245</h1>
+
+</ion-card-content>
+
+</ion-card>
+
+<ion-card>
+  <ion-card-content>
+    <h3>Barberos</h3>
+    <h1>{{ totalBarbers }}</h1>
+  </ion-card-content>
+</ion-card>
+
+</div>
+
+<h2 class="section">
+
+Acciones rápidas
+
+</h2>
+
+
+<div class="actions">
+
+  <ion-button class="btn-barbero" (click)="openNewBarberModal()">
+    <ion-icon slot="start" name="people-outline"></ion-icon>
+    Nuevo Barbero
+  </ion-button>
+
+  <ion-button class="btn-servicio" (click)="openNewServiceModal()">
+    <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+    Servicio
+  </ion-button>
+
+  <ion-button class="btn-promocion" (click)="openNewPromoModal()">
+    <ion-icon slot="start" name="ribbon-outline"></ion-icon>
+    Promoción
+  </ion-button>
+
+</div>
+<h2 class="section">Ver listados</h2>
+
+<div class="actions">
+  <ion-button class="btn-orange" fill="outline" (click)="openBarberListModal()">
+    <ion-icon slot="start" name="eye-outline"></ion-icon>
+    Ver Barberos
+  </ion-button>
+
+  <ion-button class="btn-orange" fill="outline" (click)="openServiceListModal()">
+    <ion-icon slot="start" name="eye-outline"></ion-icon>
+    Ver Servicios
+  </ion-button>
+
+  <ion-button class="btn-orange" fill="outline" (click)="openBookingListModal()">
+    <ion-icon slot="start" name="eye-outline"></ion-icon>
+    Ver Citas
+  </ion-button>
+</div>
+
+<h2 class="section">
+
+Actividad reciente
+
+</h2>
+
+<ion-card *ngFor="let item of recent">
+
+<ion-card-content>
+
+<div class="activity">
+
+<ion-icon [name]="item.icon"></ion-icon>
+
+<div>
+
+<h3>{{item.title}}</h3>
+
+<p>{{item.description}}</p>
+
+</div>
+
+</div>
+
+</ion-card-content>
+
+</ion-card>
+
+<p *ngIf="recent.length === 0" class="empty">
+  Sin actividad reciente todavía.
+</p>
+
+</ion-content>
+
+
+<!-- ---------- MODAL: NUEVO BARBERO ---------- -->
+<ion-modal [isOpen]="isNewBarberModalOpen" (didDismiss)="closeNewBarberModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Nuevo Barbero</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeNewBarberModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+
+      <div class="upload-box">
+        <img *ngIf="previewUrl" [src]="previewUrl" class="preview" />
+        <label class="upload-label">
+          <ion-icon name="camera-outline"></ion-icon>
+          {{ selectedFile ? 'Cambiar foto' : 'Subir foto' }}
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+        </label>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="newBarber.name" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Especialidad</ion-label>
+        <ion-input [(ngModel)]="newBarber.specialty" name="specialty"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="ion-margin-top" [disabled]="isUploading" (click)="saveNewBarber()">
+        {{ isUploading ? 'Subiendo...' : 'Guardar Barbero' }}
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- ---------- MODAL: NUEVO SERVICIO ---------- -->
+<ion-modal [isOpen]="isNewServiceModalOpen" (didDismiss)="closeNewServiceModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Nuevo Servicio</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeNewServiceModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="newService.name" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="newService.description" name="description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Precio</ion-label>
+        <ion-input type="number" [(ngModel)]="newService.price" name="price"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="ion-margin-top" (click)="saveNewService()">
+        Guardar Servicio
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- ---------- MODAL: NUEVA PROMOCIÓN ---------- -->
+<ion-modal [isOpen]="isNewPromoModalOpen" (didDismiss)="closeNewPromoModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Nueva Promoción</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeNewPromoModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-label position="stacked">Título</ion-label>
+        <ion-input [(ngModel)]="newPromo.title" name="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="newPromo.description" name="description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descuento (%)</ion-label>
+        <ion-input type="number" [(ngModel)]="newPromo.discount" name="discount"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="ion-margin-top" (click)="saveNewPromo()">
+        Guardar Promoción
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- ---------- MODAL: LISTA DE BARBEROS ---------- -->
+<ion-modal [isOpen]="isBarberListModalOpen" (didDismiss)="closeBarberListModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Barberos ({{ barbers.length }})</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeBarberListModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding list-modal">
+
+      <ion-card *ngFor="let barber of barbers">
+        <ion-card-content>
+          <div class="list-row">
+            <ion-avatar>
+              <img [src]="barber.image || 'assets/barbers/default.jpg'">
+            </ion-avatar>
+            <div class="list-info">
+              <h3>{{ barber.name }}</h3>
+              <p>{{ barber.specialty }}</p>
+              <div class="rating">
+                <ion-icon name="star-outline"></ion-icon>
+                {{ barber.rating }} · {{ barber.votes }} votos
+              </div>
+            </div>
+            <ion-button fill="clear" color="danger" (click)="deleteBarberFromList(barber)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <p *ngIf="barbers.length === 0" class="empty">No hay barberos registrados.</p>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- ---------- MODAL: LISTA DE SERVICIOS ---------- -->
+<ion-modal [isOpen]="isServiceListModalOpen" (didDismiss)="closeServiceListModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Servicios ({{ services.length }})</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeServiceListModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding list-modal">
+
+      <ion-card *ngFor="let service of services">
+        <ion-card-content>
+          <div class="list-row">
+            <ion-icon name="cut-outline" class="service-icon"></ion-icon>
+            <div class="list-info">
+              <h3>{{ service.name }}</h3>
+              <p>{{ service.description }}</p>
+              <span class="price-tag">${{ service.price }}</span>
+            </div>
+            <ion-button fill="clear" color="danger" (click)="deleteServiceFromList(service)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <p *ngIf="services.length === 0" class="empty">No hay servicios registrados.</p>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- ---------- MODAL: LISTA DE CITAS ---------- -->
+<ion-modal [isOpen]="isBookingListModalOpen" (didDismiss)="closeBookingListModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Citas ({{ bookings.length }})</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeBookingListModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding list-modal">
+
+      <ion-card *ngFor="let booking of bookings">
+        <ion-card-content>
+          <div class="booking-header">
+            <h3>{{ booking.clientName }}</h3>
+            <span class="status-badge" [ngClass]="booking.status">{{ booking.status }}</span>
+          </div>
+          <p>{{ booking.serviceName }} con {{ booking.barberName }}</p>
+          <p class="booking-meta">{{ booking.date }} · {{ booking.time }} · ${{ booking.servicePrice }}</p>
+
+          <div class="booking-actions" *ngIf="booking.status === 'Pendiente'">
+            <ion-button size="small" color="success" (click)="confirmBooking(booking)">
+              <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+              Confirmar
+            </ion-button>
+            <ion-button size="small" color="danger" fill="outline" (click)="cancelBooking(booking)">
+              <ion-icon slot="start" name="close-circle"></ion-icon>
+              Cancelar
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <p *ngIf="bookings.length === 0" class="empty">No hay citas registradas.</p>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>

@@ -1,27 +1,88 @@
-#container {
+// 1. ion-content no acepta flexbox directamente en su clase externa,
+// debemos aplicarlo a su contenedor interno utilizando la pseudo-clase ::part()
+.login-page {
+  --background: #111111;
+  --padding-top: 35px;
+  --padding-bottom: 35px;
+  --padding-start: 25px;
+  --padding-end: 25px;
+  color: #ffffff;
+
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+.logo-container {
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 60px; // Reducido un poco para que no se desborde con el flex
+  margin-bottom: 50px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
+.logo-container h1 {
+  color: #e58a3b;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
   margin: 0;
+  display: inline-block;
 }
 
-#container a {
-  text-decoration: none;
+.logo-container h1::before,
+.logo-container h1::after {
+  content: "";
+  display: inline-block;
+  width: 30px; // Ajustado para evitar saltos de línea innecesarios
+  height: 2px;
+  background: #e58a3b;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+// 2. ion-item requiere usar variables para el borde y el fondo interno
+ion-item {
+  --background: transparent;
+  --border-color: transparent;
+  --highlight-height: 0;
+  --inner-padding-end: 0;
+  --padding-start: 12px;
+
+  border: 1px solid #333333;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  color: white;
+}
+
+// 3. El input necesita variables específicas para sus colores internos
+ion-input {
+  --color: white;
+  --placeholder-color: #777777;
+}
+
+ion-icon {
+  color: #888888;
+  margin-right: 8px;
+}
+
+// 4. El botón requiere variables para su altura y bordes
+ion-button {
+  margin-top: 35px;
+  height: 52px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  --background: #e58a3b;
+  --background-hover: #d87828;
+  --border-radius: 30px;
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 25px;
+  color: #bdbdbd;
+  font-size: 0.95rem;
 }

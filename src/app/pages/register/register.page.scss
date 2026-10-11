@@ -1,0 +1,105 @@
+.register-page {
+  --background: #111111;
+  --padding-top: 30px;
+  --padding-bottom: 30px;
+  --padding-start: 25px;
+  --padding-end: 25px;
+  color: white;
+
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+  }
+}
+
+.register-container {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-container h1 {
+  color: #e58a3b;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.logo-container h1::before,
+.logo-container h1::after {
+  content: "";
+  display: inline-block;
+  width: 25px;
+  height: 2px;
+  background: #e58a3b;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+.logo-container p {
+  color: #888888;
+  margin-top: 12px;
+  font-size: 1rem;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: transparent;
+  --highlight-height: 0;
+  --inner-padding-end: 0;
+  --padding-start: 12px;
+
+  border: 1px solid #333333;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+ion-input {
+  --color: white;
+  --placeholder-color: #777777;
+}
+
+ion-icon {
+  color: #888888;
+  margin-right: 8px;
+}
+
+.register-button {
+  margin-top: 25px;
+  height: 52px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  --background: #e58a3b;
+  --background-hover: #d87828;
+  --border-radius: 30px;
+}
+
+.login-text {
+  text-align: center;
+  margin-top: 28px;
+  margin-bottom: 0;
+
+  color: #888888;
+  font-size: 0.9rem;
+}
+
+.login-button {
+  margin-top: 5px;
+
+  --color: #e58a3b;
+
+  font-weight: 600;
+  letter-spacing: 1px;
+}

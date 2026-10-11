@@ -1,0 +1,185 @@
+<ion-header>
+
+  <ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Gestión de Personal
+    </ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="page">
+
+<div class="header">
+
+<h2>Equipo de Trabajo</h2>
+
+<p>Administra los empleados de la barbería</p>
+
+</div>
+
+<ion-card *ngFor="let employee of staff">
+
+<ion-card-content>
+
+<div class="employee">
+
+<ion-avatar>
+
+<img [src]="employee.image || 'assets/avatar.png'">
+
+</ion-avatar>
+
+<div class="info">
+
+<h3>{{employee.name}}</h3>
+
+<p>{{employee.specialty}}</p>
+
+<div class="rating">
+
+<ion-icon name="star"></ion-icon>
+
+{{employee.rating}}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="buttons">
+
+<ion-button color="warning" (click)="openEditModal(employee)">
+
+<ion-icon slot="start" name="create-outline"></ion-icon>
+
+Editar
+
+</ion-button>
+
+<ion-button color="danger" (click)="remove(employee)">
+
+<ion-icon slot="start" name="trash-outline"></ion-icon>
+
+Eliminar
+
+</ion-button>
+
+</div>
+
+</ion-card-content>
+
+</ion-card>
+
+<p *ngIf="staff.length === 0" class="empty">
+  No hay personal registrado todavía.
+</p>
+
+<ion-fab vertical="bottom" horizontal="end">
+
+<ion-fab-button color="warning" (click)="openNewModal()">
+
+<ion-icon name="add"></ion-icon>
+
+</ion-fab-button>
+
+</ion-fab>
+
+</ion-content>
+
+<ion-footer>
+
+  <div class="bottom">
+
+    <div (click)="goToHome()">
+      <ion-icon name="home-outline"></ion-icon>
+      <p>Inicio</p>
+    </div>
+
+    <div class="active">
+      <ion-icon name="people-outline"></ion-icon>
+      <p>Personal</p>
+    </div>
+
+    <div (click)="openSettingsModal()">
+      <ion-icon name="settings-outline"></ion-icon>
+      <p>Ajustes</p>
+    </div>
+
+  </div>
+
+</ion-footer>
+
+
+<ion-modal [isOpen]="isFormModalOpen" (didDismiss)="closeFormModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>{{ isEditing ? 'Editar Empleado' : 'Nuevo Empleado' }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeFormModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+
+      <div class="upload-box">
+        <img *ngIf="previewUrl" [src]="previewUrl" class="preview" />
+        <label class="upload-label">
+          <ion-icon name="camera-outline"></ion-icon>
+          {{ selectedFile || previewUrl ? 'Cambiar foto' : 'Subir foto' }}
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+        </label>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="form.name" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Especialidad</ion-label>
+        <ion-input [(ngModel)]="form.specialty" name="specialty"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="ion-margin-top" [disabled]="isUploading" (click)="save()">
+        {{ isUploading ? 'Guardando...' : (isEditing ? 'Actualizar' : 'Agregar') }}
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal [isOpen]="isSettingsModalOpen" (didDismiss)="closeSettingsModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Ajustes</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeSettingsModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+
+      <ion-list>
+        <ion-item button routerLink="/admin" (click)="closeSettingsModal()">
+          <ion-icon slot="start" name="business-outline"></ion-icon>
+          <ion-label>Ir al Dashboard</ion-label>
+        </ion-item>
+      </ion-list>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>

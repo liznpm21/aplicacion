@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="/services" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirmación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" class="ion-padding">
+
+  <div class="success-icon">
+    <ion-icon name="checkmark-circle"></ion-icon>
+  </div>
+
+  <h1 class="success-title">¡Reserva confirmada!</h1>
+  <p class="success-subtitle">Te esperamos en la fecha y hora elegida</p>
+
+  <ion-card>
+    <ion-card-content>
+
+      <div class="detail-row">
+        <ion-icon name="cut-outline"></ion-icon>
+        <div>
+          <span class="label">Servicio</span>
+          <p class="value">{{ serviceName || 'No especificado' }}</p>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <ion-icon name="person-outline"></ion-icon>
+        <div>
+          <span class="label">Barbero</span>
+          <p class="value">{{ barberName || 'No especificado' }}</p>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <div>
+          <span class="label">Fecha</span>
+          <p class="value">{{ formattedDate || 'No especificada' }}</p>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <ion-icon name="time-outline"></ion-icon>
+        <div>
+          <span class="label">Hora</span>
+          <p class="value">{{ time || 'No especificada' }}</p>
+        </div>
+      </div>
+
+      <div class="detail-row" *ngIf="servicePrice">
+        <ion-icon name="cash-outline"></ion-icon>
+        <div>
+          <span class="label">Precio</span>
+          <p class="value">${{ servicePrice }}</p>
+        </div>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" routerLink="/services">
+    Volver a Servicios
+  </ion-button>
+
+</ion-content>

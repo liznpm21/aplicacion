@@ -35,3 +35,9 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+.btn-orange {
+  --ripple-color: #ff7a00;
+  --background-activated-opacity: 0.2;
+  --background-hover-opacity: 50;
+}

@@ -1,0 +1,174 @@
+ion-content {
+  --background: #111;
+  color: white;
+}
+
+.banner {
+  height: 150px;
+  background: #e58a3b;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.services-grid,
+.barbers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 0 20px 20px;
+}
+
+.service-card,
+.barber-card {
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.service-card:active,
+.barber-card:active {
+  transform: scale(0.96);
+}
+
+.icon-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #1c1c1c;
+  border: 2px solid #e58a3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.icon-circle ion-icon {
+  font-size: 32px;
+  color: #e58a3b;
+}
+
+.service-card p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: white;
+}
+
+.barber-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #e58a3b;
+}
+
+.barber-name {
+  margin: 8px 0 4px;
+  font-size: 13px;
+  color: white;
+  font-weight: 600;
+}
+
+.barber-stars {
+  color: #e58a3b;
+  font-size: 12px;
+}
+
+.barber-votes {
+  display: block;
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.modal-content {
+  --background: #111;
+  color: white;
+  text-align: center;
+  padding: 24px;
+}
+
+.modal-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.modal-image.round {
+  border-radius: 50%;
+}
+
+.modal-subtitle {
+  color: #e58a3b;
+  margin-top: 16px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.modal-description {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+.modal-rating {
+  color: #e58a3b;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.modal-votes {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 16px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.option-card {
+  background: #1c1c1c;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.option-card:active {
+  transform: scale(0.96);
+}
+
+.option-card.selected {
+  border-color: #e58a3b;
+}
+
+.option-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.option-card p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: white;
+}
+
+.option-price {
+  display: block;
+  font-size: 12px;
+  color: #e58a3b;
+  font-weight: bold;
+  margin: 2px 0 8px;
+}

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+
+  <ion-card>
+    <ion-card-content>
+
+      <h2>{{ selection.serviceName }}</h2>
+      <p>{{ selection.barberName }} ⭐⭐⭐⭐⭐</p>
+      <p *ngIf="selection.servicePrice">${{ selection.servicePrice }}</p>
+
+    </ion-card-content>
+  </ion-card>
+
+  <h3>Elige la fecha</h3>
+
+  <ion-datetime
+    presentation="date"
+    locale="es-CO"
+    [(ngModel)]="selectedDate">
+  </ion-datetime>
+
+  <h3>Elige la hora</h3>
+
+  <div class="hours">
+
+    <ion-button
+      *ngFor="let hour of availableHours"
+      [fill]="selectedHour === hour ? 'solid' : 'outline'"
+      [color]="selectedHour === hour ? 'warning' : undefined"
+      (click)="selectHour(hour)">
+      {{ hour }}
+    </ion-button>
+
+  </div>
+
+  <ion-button
+    expand="block"
+    [disabled]="isSaving"
+    (click)="confirm()">
+    {{ isSaving ? 'Guardando...' : 'CONTINUE' }}
+  </ion-button>
+
+</ion-content>

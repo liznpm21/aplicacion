@@ -1,0 +1,146 @@
+<ion-menu contentId="main-content" side="start">
+
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>Barbershop</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle autoHide="true">
+        <ion-item routerLink="/home">
+          <ion-label>Inicio</ion-label>
+        </ion-item>
+        <ion-item routerLink="/services">
+          <ion-label>Servicios</ion-label>
+        </ion-item>
+        <ion-item routerLink="/booking">
+          <ion-label>Reservas</ion-label>
+        </ion-item>
+      <ion-item *ngIf="isAdmin" routerLink="/admin">
+  <ion-label>Administrador</ion-label>
+</ion-item>
+        <ion-item routerLink="/login">
+          <ion-label>Cerrar sesión</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" color="dark">
+
+  <div class="banner"></div>
+
+  <h2>Services</h2>
+
+  <div class="services-grid">
+    <div
+      class="service-card"
+      *ngFor="let service of services"
+      (click)="openService(service)">
+      <div class="icon-circle">
+        <ion-icon [name]="service.icon"></ion-icon>
+      </div>
+      <p>{{ service.name }}</p>
+    </div>
+  </div>
+
+  <h2>Barbers</h2>
+
+  <div class="barbers-grid">
+    <div
+      class="barber-card"
+      *ngFor="let barber of barbers"
+      (click)="openBarber(barber)">
+      <img [src]="barber.image" [alt]="barber.name" class="barber-photo" />
+      <p class="barber-name">{{ barber.name }}</p>
+      <div class="barber-stars">
+        <ion-icon name="star" *ngFor="let s of getStars(barber.rating)"></ion-icon>
+      </div>
+      <span class="barber-votes">{{ barber.votes }} votes</span>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-modal [isOpen]="isServiceModalOpen" (didDismiss)="closeServiceModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>{{ selectedService?.name }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeServiceModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content color="dark" class="modal-content">
+      <p class="modal-description">{{ selectedService?.description }}</p>
+
+      <h3 class="modal-subtitle">Elige una opción</h3>
+
+      <div class="options-grid">
+        <div
+          class="option-card"
+          *ngFor="let option of selectedService?.options"
+          [class.selected]="selectedOption?.name === option.name"
+          (click)="selectOption(option)">
+          <img [src]="option.image" [alt]="option.name" />
+          <p>{{ option.name }}</p>
+          <span class="option-price">${{ option.price }}</span>
+        </div>
+      </div>
+
+      <ion-button
+        expand="block"
+        [disabled]="!selectedOption"
+        (click)="goToBookingFromService()">
+        Reservar {{ selectedOption?.name || '' }}
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="isBarberModalOpen" (didDismiss)="closeBarberModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>{{ selectedBarber?.name }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeBarberModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content color="dark" class="modal-content">
+      <img [src]="selectedBarber?.image" [alt]="selectedBarber?.name" class="modal-image round" />
+      <p class="modal-rating">
+        <ion-icon name="star" *ngFor="let s of getStars(selectedBarber?.rating || 0)"></ion-icon>
+      </p>
+      <span class="modal-votes">{{ selectedBarber?.votes }} votes</span>
+      <p class="modal-description">{{ selectedBarber?.specialty }}</p>
+      <ion-button expand="block" (click)="chooseBarber()">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        Elegir a {{ selectedBarber?.name }}
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

@@ -1,0 +1,243 @@
+ion-content.page{
+
+--background:#101114;
+
+color:white;
+
+}
+
+ion-toolbar{
+
+--background:#111;
+
+--color:white;
+
+}
+
+.profile{
+
+font-size:34px;
+
+margin-right:15px;
+
+color:#ff8a00;
+
+}
+
+.today{
+
+padding:20px;
+
+}
+
+.today h2{
+
+font-size:24px;
+
+font-weight:bold;
+
+margin-bottom:5px;
+
+}
+
+.today p{
+
+color:#bbbbbb;
+
+}
+
+.appointment{
+
+display:flex;
+
+padding:10px;
+
+align-items:flex-start;
+
+}
+
+.hour{
+
+width:70px;
+
+font-size:16px;
+
+font-weight:bold;
+
+padding-top:20px;
+
+color:#ff8a00;
+
+}
+
+ion-card{
+
+width:100%;
+
+background:#1c1c1c;
+
+border-radius:20px;
+
+box-shadow:none;
+
+}
+
+.top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.top img{
+
+width:60px;
+
+height:60px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+.status{
+
+color:#53ff6e;
+
+font-size:14px;
+
+}
+
+h3{
+
+margin:8px 0;
+
+color:white;
+
+}
+
+p{
+
+color:#cccccc;
+
+}
+
+.buttons{
+
+display:flex;
+
+gap:10px;
+
+margin-top:20px;
+
+flex-wrap:wrap;
+
+}
+
+ion-button{
+
+--border-radius:20px;
+
+font-size:12px;
+
+}
+
+.bottom{
+
+display:flex;
+
+justify-content:space-around;
+
+background:#111;
+
+padding:12px;
+
+}
+
+.bottom div{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+color:white;
+
+}
+
+.bottom ion-icon{
+
+font-size:25px;
+
+color:#ff8a00;
+
+}
+
+.bottom p{
+
+margin-top:5px;
+
+font-size:12px;
+
+}
+
+.modal-content {
+  --background: #111;
+  color: white;
+  text-align: center;
+}
+
+.profile-icon {
+  font-size: 80px;
+  color: #e58a3b;
+  margin-top: 20px;
+}
+
+.subtitle {
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.stat-icon {
+  font-size: 28px;
+  color: #e58a3b;
+  margin-bottom: 8px;
+}
+
+.bottom > div {
+  cursor: pointer;
+}
+
+.calendar {
+  --background: #1c1c1c;
+  border-radius: 14px;
+  margin: 0 16px 20px;
+}
+
+.modal-content {
+  --background: #111;
+  color: white;
+  text-align: center;
+}
+
+.profile-icon {
+  font-size: 80px;
+  color: #e58a3b;
+  margin-top: 20px;
+}
+
+.subtitle {
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.stat-icon {
+  font-size: 28px;
+  color: #e58a3b;
+  margin-bottom: 8px;
+}
